@@ -108,6 +108,13 @@ where
     }
 }
 
+#[async_trait]
+impl TryIntoAdapter for Option<Box<dyn Adapter>> {
+    async fn try_into_adapter(self) -> Result<Box<dyn Adapter>> {
+        Ok(self.unwrap())
+    }
+}
+
 pub trait EnforceArgs {
     fn try_into_vec(self) -> Result<Vec<Dynamic>>;
     fn cache_key(&self) -> u64;
